@@ -9,5 +9,9 @@
     <string name="iran_mountain">Damavand is biggest mountain in Iran</string>
     <string name="alp_mountains">Alp mountains in American</string>
     <string name="amazon_river">Amazon river in Asia</string>
+    <string name="warning_text">Are you sure you want to do this?</string>
+    <string name="show_answer_button">Show Answer</string>
+    <string name="cheat_button">Cheat!</string>
+    <string name="judgment_toast">Cheating is wrong.</string>
 
 </resources>

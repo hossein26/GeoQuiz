@@ -26,6 +26,12 @@ class QuestionViewModel : ViewModel() {
             questionBank[currentIndex].isAnswered = value
         }
 
+    var isCheater: Boolean
+        get() = questionBank[currentIndex].isCheater
+        set(value) {
+            questionBank[currentIndex].isCheater = value
+        }
+
     val questionBankSize: Int
         get() = questionBank.size
 

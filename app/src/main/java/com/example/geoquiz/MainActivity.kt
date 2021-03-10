@@ -1,5 +1,7 @@
 package com.example.geoquiz
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -8,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 
 private const val KEY_INDEX = "index"
+private const val REQUEST_CODE_CHEAT = 0
+ lateinit var questionViewModel: QuestionViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonFalse: Button
     private lateinit var buttonNext: Button
     private lateinit var buttonPerv: Button
-    private lateinit var questionViewModel: QuestionViewModel
+    private lateinit var cheatButton: Button
     private var numberOfAnswered = 0
     private var numberTrue = 0
 
@@ -32,6 +36,17 @@ class MainActivity : AppCompatActivity() {
 
         initialize()
         listeners()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != Activity.RESULT_OK) return
+
+        if (requestCode == REQUEST_CODE_CHEAT){
+            questionViewModel.isCheater =
+                data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+        }
     }
 
     private fun listeners() {
@@ -57,6 +72,12 @@ class MainActivity : AppCompatActivity() {
             questionViewModel.nextQuestion()
             updateQuestion()
         }
+
+        cheatButton.setOnClickListener {
+            val answerIsTrue = questionViewModel.currentQuestionAnswer
+            val intent = SecondActivity.newIntent(this@MainActivity, answerIsTrue)
+            startActivityForResult(intent, REQUEST_CODE_CHEAT)
+        }
     }
 
     //save index in death process
@@ -71,6 +92,7 @@ class MainActivity : AppCompatActivity() {
         buttonFalse = findViewById(R.id.button_false)
         buttonNext = findViewById(R.id.button_next)
         buttonPerv = findViewById(R.id.button_previous)
+        cheatButton = findViewById(R.id.cheat_button)
         updateQuestion()
     }
 
@@ -89,11 +111,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkAnswer(userAnswer: Boolean) {
         val correctAnswer = questionViewModel.currentQuestionAnswer
-        if (userAnswer == correctAnswer) {
-            Toast.makeText(this, R.string.correct_toast, Toast.LENGTH_SHORT).show()
-            numberTrue += 1
-        } else {
-            Toast.makeText(this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show()
+        when {
+            questionViewModel.isCheater -> {
+                Toast.makeText(this, R.string.judgment_toast, Toast.LENGTH_SHORT).show()
+            }
+            userAnswer == correctAnswer -> {
+                Toast.makeText(this, R.string.correct_toast, Toast.LENGTH_SHORT).show()
+                numberTrue += 1
+            }
+            else -> {
+                Toast.makeText(this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show()
+            }
         }
         isAnswered(true)
         numberOfAnswered += 1
