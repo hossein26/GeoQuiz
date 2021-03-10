@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 
 private const val KEY_INDEX = "index"
 private const val REQUEST_CODE_CHEAT = 0
+ lateinit var questionViewModel: QuestionViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonNext: Button
     private lateinit var buttonPerv: Button
     private lateinit var cheatButton: Button
-    private lateinit var questionViewModel: QuestionViewModel
     private var numberOfAnswered = 0
     private var numberTrue = 0
 

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 class QuestionViewModel : ViewModel() {
 
     var currentIndex = 0
-    var isCheater = false
 
     private val questionBank = listOf<Question>(
         Question(R.string.alp_mountains, false),
@@ -25,6 +24,12 @@ class QuestionViewModel : ViewModel() {
         get() = questionBank[currentIndex].isAnswered
         set(value) {
             questionBank[currentIndex].isAnswered = value
+        }
+
+    var isCheater: Boolean
+        get() = questionBank[currentIndex].isCheater
+        set(value) {
+            questionBank[currentIndex].isCheater = value
         }
 
     val questionBankSize: Int
