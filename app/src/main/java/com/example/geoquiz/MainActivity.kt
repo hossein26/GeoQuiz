@@ -11,7 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 
 private const val KEY_INDEX = "index"
 private const val REQUEST_CODE_CHEAT = 0
- lateinit var questionViewModel: QuestionViewModel
+private const val MAX_CHEAT = 3
+lateinit var questionViewModel: QuestionViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cheatButton: Button
     private var numberOfAnswered = 0
     private var numberTrue = 0
+    private var cheatNumber = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +79,12 @@ class MainActivity : AppCompatActivity() {
             val answerIsTrue = questionViewModel.currentQuestionAnswer
             val intent = SecondActivity.newIntent(this@MainActivity, answerIsTrue)
             startActivityForResult(intent, REQUEST_CODE_CHEAT)
+
+            cheatNumber += 1
+            Toast.makeText(this, "$cheatNumber/$MAX_CHEAT is used!", Toast.LENGTH_SHORT).show()
+            if (cheatNumber >= MAX_CHEAT){
+                cheatButton.isEnabled = false
+            }
         }
     }
 
