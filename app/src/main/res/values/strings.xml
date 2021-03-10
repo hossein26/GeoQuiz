@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+    <string name="correct_toast">True</string>
+    <string name="incorrect_toast">False</string>
+    <string name="button_next">Next</string>
+    <string name="button_previous">Prev</string>
+    <string name="iran_capital">Iran capital is Tehran</string>
+    <string name="england_capital">England capital is Amsterdam</string>
+    <string name="iran_mountain">Damavand is biggest mountain in Iran</string>
+    <string name="alp_mountains">Alp mountains in American</string>
+    <string name="amazon_river">Amazon river in Asia</string>
+    
+</resources>
