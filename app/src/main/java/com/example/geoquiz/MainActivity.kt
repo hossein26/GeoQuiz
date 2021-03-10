@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 
 private const val KEY_INDEX = "index"
 private const val REQUEST_CODE_CHEAT = 0
-private const val EXTRA_ANSWER_SHOWN = "com.example.geoquiz.answer_shown"
 
 class MainActivity : AppCompatActivity() {
 
