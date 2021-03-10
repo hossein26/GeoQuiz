@@ -80,5 +80,6 @@ class SecondActivity : AppCompatActivity() {
                 putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue)
             }
         }
+
     }
 }
